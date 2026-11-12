@@ -1,0 +1,67 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fair Slice: Cutting Chef</title>
+<meta name="description" content="Slice food to the exact %! A free, satisfying cutting game. Rebuild your cozy diner.">
+<meta property="og:title" content="Fair Slice: Cutting Chef">
+<meta property="og:description" content="Can you cut EXACTLY 50%? Free on Android and iPhone.">
+<meta property="og:image" content="https://lifelesssword1.github.io/fairslice/share.jpg">
+<meta property="og:url" content="https://lifelesssword1.github.io/fairslice/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon.png">
+<script>
+// ---- settings ----
+var PLAY='https://play.google.com/store/apps/details?id=com.sgdstudios.fairslice';
+var APPLE='https://apps.apple.com/app/id6826216247';
+var IOS_LIVE=false; // set to true once Apple approves the game
+// ------------------
+(function(){
+  var q=new URLSearchParams(location.search),ua=navigator.userAgent||'';
+  var src=q.get('utm_source')||q.get('s')||'link',med=q.get('utm_medium')||'',cmp=q.get('utm_campaign')||'';
+  var ref='utm_source='+src+(med?'&utm_medium='+med:'')+(cmp?'&utm_campaign='+cmp:'');
+  window.PLAY_URL=PLAY+'&referrer='+encodeURIComponent(ref);
+  window.APPLE_URL=APPLE+'?ct='+encodeURIComponent(src);
+  var isAndroid=/Android/i.test(ua);
+  var isIOS=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  window.DEVICE=isAndroid?'android':isIOS?'ios':'desktop';
+  if(q.has('stay'))return;
+  if(isAndroid)location.replace(window.PLAY_URL);
+  else if(isIOS&&IOS_LIVE)location.replace(window.APPLE_URL);
+})();
+</script>
+<style>
+:root{--bg:#FFF0F4;--card:#fff;--fg:#3A1F2B;--muted:#7D6270;--accent:#E8386E;--ink:#fff;--line:#F3D3DE}
+@media (prefers-color-scheme:dark){:root{--bg:#1E1418;--card:#2A1C22;--fg:#F8E9EF;--muted:#C2A3B1;--accent:#FF5C8D;--ink:#1E1418;--line:#45303A}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left)) 24px max(16px,env(safe-area-inset-right))}
+main{width:100%;max-width:420px;display:grid;gap:18px;text-align:center}
+.icon{width:120px;height:120px;border-radius:28px;margin:0 auto;box-shadow:0 10px 30px rgba(232,56,110,.25)}
+h1{margin:0;font-size:30px;line-height:1.1;color:var(--accent)}
+.sub{margin:0;color:var(--muted)}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 20px;border-radius:16px;text-decoration:none;font-weight:800;font-size:18px}
+.play{background:var(--accent);color:var(--ink)}
+.apple{background:var(--fg);color:var(--bg)}
+.soon{background:transparent;color:var(--muted);border:2px dashed var(--line);font-weight:700}
+.btn small{display:block;font-weight:600;font-size:12px;opacity:.85}
+.qr{background:#fff;padding:14px;border-radius:16px;margin:0 auto;width:max-content}
+.note{font-size:14px;color:var(--muted);margin:0}
+[hidden]{display:none!important}
+</style></head><body>
+<main>
+  <img class="icon" src="icon.png" alt="Fair Slice icon">
+  <h1>Fair Slice: Cutting Chef</h1>
+  <p class="sub">Slice food to the exact %. Free to play.</p>
+  <a class="btn play" id="bPlay" href="#"><span>▶</span><span><small>GET IT ON</small>Google Play</span></a>
+  <a class="btn apple" id="bApple" href="#" hidden><span></span><span><small>DOWNLOAD ON THE</small>App Store</span></a>
+  <div class="btn soon" id="bSoon"><span><small>iPHONE</small>Coming soon to the App Store</span></div>
+  <div id="qrBox" hidden><div class="qr" id="qr"></div><p class="note">On a computer? Scan with your phone's camera.</p></div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+document.getElementById('bPlay').href=PLAY_URL;
+document.getElementById('bApple').href=APPLE_URL;
+if(IOS_LIVE){document.getElementById('bApple').hidden=false;document.getElementById('bSoon').hidden=true}
+if(DEVICE==='desktop'){document.getElementById('qrBox').hidden=false;
+  try{new QRCode(document.getElementById('qr'),{text:location.origin+location.pathname+location.search,width:160,height:160})}catch(e){document.getElementById('qrBox').hidden=true}}
+if(DEVICE==='ios'&&!IOS_LIVE){document.querySelector('.sub').textContent='Coming to iPhone very soon! Already free on Android.'}
+</script>
+</body></html>
